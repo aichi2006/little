@@ -10,7 +10,8 @@ Page({
     target:-1,
     locate:[],
     target_show: false,
-    can_start: true
+    can_start: true,
+    can_turn: false
   },
 
   /**
@@ -46,17 +47,32 @@ Page({
     var repeat=8;
     this.setTarget();
     
-    setInterval(function(){
+    var timer=setInterval(function(){
       if(repeat==0){
         that.setData({
-          can_start: true
+          can_start: true,
+          can_turn: true
         });
+        clearInterval(timer);
         return;
       };
       that.move();
       repeat--;
     },1000)
     
+  },
+  //翻牌
+  turnAround: function(evt){
+    if(!this.data.can_turn) return;
+    var id=evt.currentTarget.dataset.id;
+    if(this.data.target==id){
+      console.log('猜对了');
+    }else{
+      console.log('猜错了');
+    }
+    this.setData({
+      can_turn: false
+    })
   },
   //确定目标
   setTarget: function(){

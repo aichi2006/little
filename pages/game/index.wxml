@@ -3,6 +3,6 @@
 <view class='box'>
   <button class='start' bindtap='fntap'>开始挑战</button>
   <view class='list'>
-    <button data-id='{{item.id}}' class="{{(target==item.id&&target_show)?'active':''}}" wx:for="{{locate}}" wx:key="{{item.id}}" style='left:{{item.x}}rpx;top:{{item.y}}rpx;'></button>
+    <button data-id='{{item.id}}' class="{{(target==item.id&&target_show)?'active':''}}" wx:for="{{locate}}" wx:key="{{item.id}}" style='left:{{item.x}}rpx;top:{{item.y}}rpx;' bindtap='turnAround'></button>
   </view>
 </view>
