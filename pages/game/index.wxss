@@ -1,0 +1,52 @@
+/* pages/game/index.wxss */
+
+.box{
+  width: 730rpx;
+  margin: 0 auto;
+}
+.start{
+  width: 300rpx;
+  display: block;
+  margin: 0 auto;
+}
+.list{
+  width: 690rpx;
+  height: 690rpx;
+  margin: 30rpx auto 0;
+  border: 1px solid #666;
+  background: #ccc;
+  position: relative;
+}
+.list button{
+  width: 120rpx;
+  height: 120rpx;
+  background: #999;
+  position: absolute;
+  transition: all 500ms ease-in-out;
+}
+.list button.active{
+  background: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
