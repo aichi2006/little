@@ -28,6 +28,39 @@
   background: red;
 }
 
+.cell{
+  display: block;
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  transition: all 500ms ease-in-out;
+  perspective: 400px;
+  transform-style: preserve-3d;
+}
+
+.cell.active{
+  background: red;
+}
+.front,.back{
+  width: 120rpx;
+  height: 120rpx;
+  backface-visibility: hidden;
+  transition: 1s;
+  transform-style: preserve-3d;
+  position: absolute;
+}
+.front{
+   background: wheat; 
+  transform: rotateY(0);
+}
+.back{
+  transform: rotateY(-180deg);
+  background: blue;
+}
+.back.bingo{
+  background: green;
+}
+
 
 
 

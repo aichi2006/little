@@ -11,7 +11,10 @@ Page({
     locate:[],
     target_show: false,
     can_start: true,
-    can_turn: false
+    can_turn: false,
+    animate: '',
+    choose: -1,
+    is_right: false
   },
 
   /**
@@ -39,33 +42,74 @@ Page({
 
   //开始挑战
   fntap: function(evt){
+    this.animation = wx.createAnimation({
+      duration: 600
+    });
+    this.animation2 = wx.createAnimation({
+      duration: 600
+    });
+    this.reset(20);
+
     if(!this.data.can_start) return;
     this.setData({
-      can_start: false
+      can_start: false,
+      choose: -1,
+      is_right: false
     });
     var that=this;
     var repeat=8;
     this.setTarget();
     
-    var timer=setInterval(function(){
-      if(repeat==0){
-        that.setData({
-          can_start: true,
-          can_turn: true
-        });
-        clearInterval(timer);
-        return;
-      };
-      that.move();
-      repeat--;
-    },1000)
+    setTimeout(function(){
+      var timer = setInterval(function () {
+        if (repeat == 0) {
+          that.setData({
+            can_start: true,
+            can_turn: true
+          });
+          clearInterval(timer);
+          return;
+        };
+        that.move();
+        repeat--;
+      }, 1000)
+    },2000)
     
+    
+  },
+  ani_rotate: function(){
+    this.animation.rotateY(180).step();
+
+    this.animation2.rotateY(0).step();
+
+    this.setData({
+      animate: this.animation.export(),
+      animate2: this.animation2.export()
+    })
+  },
+  reset: function(time){
+    this.animation.rotateY(0).step({ duration: time});
+    this.animation2.rotateY(-180).step({ duration: time });
+    this.setData({
+      animate: this.animation.export(),
+      animate2: this.animation2.export()
+    })
   },
   //翻牌
   turnAround: function(evt){
     if(!this.data.can_turn) return;
-    var id=evt.currentTarget.dataset.id;
+    var id = evt.currentTarget.dataset.id;
+    
+    this.ani_rotate();
+
+    this.setData({
+      choose: id
+    })
+
     if(this.data.target==id){
+      this.setData({
+        is_right: true
+      })
       console.log('猜对了');
     }else{
       console.log('猜错了');
@@ -79,14 +123,20 @@ Page({
     var num=Math.round(Math.random()*25);
     this.setData({
       target: num,
-      target_show: true
+      target_show: true,
+      is_right: true
     });
+    this.ani_rotate();
     var that=this;
     setTimeout(function(){
-      that.setData({
-        target_show: false
-      })
-    },500)
+      that.reset(600);
+      setTimeout(function(){
+        that.setData({
+          target_show: false,
+          is_right: false
+        })
+      },600)
+    },2000)
   },
   //打乱
   move: function(){
